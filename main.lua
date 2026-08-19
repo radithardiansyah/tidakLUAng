@@ -24,7 +24,7 @@ local buttons = {"OK", escapebutton = 2}
         x = x + dt
 
     if state == "bekerja" then
-        if x >= 6 then
+        if x >= 1500 then
             notification_sound:play()
          local pressedbutton = love.window.showMessageBox(title, message, buttons)
 if pressedbutton == 1 then
@@ -52,7 +52,7 @@ end
            
         end
    elseif state == "istirahat" then
-     if x >= 6 then
+     if x >= 300 then
         notification_sound:play()
         local pressedbutton2 = love.window.showMessageBox(title, message, buttons)
         if pressedbutton2 == 1 then
