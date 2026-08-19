@@ -9,31 +9,58 @@ function love.load()
 
      knight_sleep = love.graphics.newImage("knight-sleep.png")
     knight_sleep:setFilter("nearest", "nearest")
+
+    notification_sound = love.audio.newSource("notificationsound.mp3","stream")
 end
 
 function love.update(dt)
 
+   local title = "pomodoro rest reminder is heeree"
+local message = "istirahatt cuyyy"
+local buttons = {"OK", escapebutton = 2} 
+
     if start == true then
+
         x = x + dt
+
     if state == "bekerja" then
-        if x >= 1500 then
-            x = 0
+        if x >= 6 then
+            notification_sound:play()
+         local pressedbutton = love.window.showMessageBox(title, message, buttons)
+if pressedbutton == 1 then
+    love.audio.stop(notification_sound)
+   x = 0
              break30Set = break30Set + 1
             state = "istirahat"
+
+end
+         
         end
     end
 
    if break30Set == 4 and state == "istirahat" then
         if x >= 1800 then
-            x = 0;
+            notification_sound:play()
+            local pressedbutton3 = love.window.showMessageBox(title, message, buttons)
+            if pressedbutton3 == 1 then
+                love.audio.stop(notification_sound)
+                 x = 0;
             break30Set = 0
             state = "bekerja"
          
+            end
+           
         end
    elseif state == "istirahat" then
-     if x >= 300 then
-            x = 0
+     if x >= 6 then
+        notification_sound:play()
+        local pressedbutton2 = love.window.showMessageBox(title, message, buttons)
+        if pressedbutton2 == 1 then
+            love.audio.stop(notification_sound)
+              x = 0
             state = "bekerja"
+        end
+          
         end
     end
 
