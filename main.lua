@@ -25,10 +25,13 @@ local buttons = {"OK", escapebutton = 2}
 
     if state == "bekerja" then
         if x >= 1500 then
+        
             notification_sound:play()
+            start = false
          local pressedbutton = love.window.showMessageBox(title, message, buttons)
 if pressedbutton == 1 then
     love.audio.stop(notification_sound)
+start = true
    x = 0
              break30Set = break30Set + 1
             state = "istirahat"
@@ -41,12 +44,15 @@ end
    if break30Set == 4 and state == "istirahat" then
         if x >= 1800 then
             notification_sound:play()
+            start = false
             local pressedbutton3 = love.window.showMessageBox(title, message, buttons)
+            
             if pressedbutton3 == 1 then
                 love.audio.stop(notification_sound)
                  x = 0;
             break30Set = 0
             state = "bekerja"
+            start = true
          
             end
            
@@ -54,8 +60,11 @@ end
    elseif state == "istirahat" then
      if x >= 300 then
         notification_sound:play()
+        
         local pressedbutton2 = love.window.showMessageBox(title, message, buttons)
+        start = false
         if pressedbutton2 == 1 then
+            start = true
             love.audio.stop(notification_sound)
               x = 0
             state = "bekerja"
