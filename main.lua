@@ -19,32 +19,31 @@ function love.update(dt)
 local message = "istirahatt cuyyy"
 local buttons = {"OK", escapebutton = 2} 
 
-    if start == true then
-
-        x = x + dt
+    if start == true then x = x + dt end
 
     if state == "bekerja" then
-        if x >= 1500 then
-        
+        if x >= 5 then
+        start = false
             notification_sound:play()
-            start = false
          local pressedbutton = love.window.showMessageBox(title, message, buttons)
 if pressedbutton == 1 then
     love.audio.stop(notification_sound)
 start = true
-   x = 0
+x = 0
              break30Set = break30Set + 1
             state = "istirahat"
 
 end
          
         end
+	love.timer.step()
     end
 
    if break30Set == 4 and state == "istirahat" then
-        if x >= 1800 then
+        if x >= 5  then
+              start = false
             notification_sound:play()
-            start = false
+          
             local pressedbutton3 = love.window.showMessageBox(title, message, buttons)
             
             if pressedbutton3 == 1 then
@@ -55,27 +54,30 @@ end
             start = true
          
             end
-           
+	     love.timer.step()
         end
+
    elseif state == "istirahat" then
-     if x >= 300 then
+     if x >= 5 then
+         start = false
         notification_sound:play()
         
         local pressedbutton2 = love.window.showMessageBox(title, message, buttons)
-        start = false
+       
         if pressedbutton2 == 1 then
             start = true
             love.audio.stop(notification_sound)
               x = 0
             state = "bekerja"
         end
-          
+          love.timer.step()
+
         end
-    end
+	     end
     
     end
      
-end
+
 
 function love.mousepressed(x, y, button)--temskuy parameter wajib
    if button == 1 then 
